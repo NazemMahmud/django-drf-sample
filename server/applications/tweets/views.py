@@ -24,22 +24,21 @@ def tweet_create_view(request, *args, **kwargs):
         data = form.save(commit=False)  # not saving, just returning the object
         data.save()
         form = TweetForm()
+        return JsonResponse(data.serialize(), status=201)
 
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = NameForm()
-
-    return render(request, 'name.html', {'form': form})
+    if form.errors:
+        return JsonResponse(form.errors, status=404)
+    # return render(request, 'name.html', {'form': form})
 
 '''
 * REST API View
 * Get all tweets
 '''
 def tweets_list_view(request, *args, **kwargs):
-    query = Tweet.objects.all().order_by('-id')
-    list = [{"id": x.id, "content": x.content} for x in query]
+    query = Tweet.objects.all()  # .order_by('-id');; Now in model, there is meta for ordering
+    list = [x.serialize() for x in query]
     data = { "response": list}
-    return JsonResponse(data)
+    return JsonResponse(data, status=200)
     # return render(request, "tweets/list.html")
 
 
