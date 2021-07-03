@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div style="margin: auto">
+            <h1> Tweets Container </h1>
+        </div>
+    </div>
+</div>
+<!-- Tweet Create  -->
+<section id="tweet-form" class="mt-5 border">
+    <div class="row p-5">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <form action="#" method="POST" id="tweet-create-form">
+               {% csrf_token %}
+                <div class="form-group">
+<!--                        {{ field.errors }}-->
+<!--                        {{ field.label_tag }} {{ field }}-->
+<!--                        {% if field.help_text %}-->
+<!--                            <p class="help">{{ field.help_text|safe }}</p>-->
+<!--                        {% endif %}-->
+                    <textarea name="content" class="form-control" id="content"  cols="30" rows="5"></textarea>
+                </div>
+
+                <button type="button" class="btn btn-primary float-right" id="newTweet">
+<!--                    <span style="display: none" id="spinner-overlay" class="spinner-border spinner-border-sm"-->
+<!--                          role="status" aria-hidden="true"></span>-->
+                    <span id="tweet-submit">Submit</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Tweet Lists  -->
+<section id="tweets" class="mt-5">
+    <div class="row" id="tweets-lists">
+    </div>
+</section>
+{% endblock content %}
+
+{% block scripts %}
+<script  type="text/javascript" src="{% static 'js/feed.js' %}"></script>
+<script  type="text/javascript">
+    function contentFunc(){
+            var baseAPI = "{{ base_api_url }}";
+            Tweet.setBaseApi(baseAPI);
+    }
+    window.onload = contentFunc;
+</script>
+{% endblock scripts %}
