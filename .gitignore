@@ -1,1 +1,6 @@
+# Jetbrains file
 .idea
+
+# pycache files
+server/applications/tweets/__pycache__/
+server/applications/tweets/migrations/__pycache__/

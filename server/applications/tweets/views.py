@@ -11,7 +11,7 @@ from .forms import TweetForm
 BASE_API_URL = settings.BASE_API_URL
 
 
-# Create your views here.
+
 
 
 def home_view(request, *args, **kwargs):
