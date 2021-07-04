@@ -5,6 +5,7 @@ const Requests = {
         // console.log(data);
         const response = $.post(url, data)
             .done(function (result) {
+                console.log("Response: ",  result);
                 const data = {
                     result: result,
                     responseType: "success"
@@ -33,6 +34,7 @@ const Requests = {
                 callback (data, fnName);
             })
             .done(function (result) {
+                 console.log("GET Response: ",  result);
                 const data =  {
                     result: result,
                     responseType:"success"

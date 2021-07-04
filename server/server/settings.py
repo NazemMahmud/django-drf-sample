@@ -28,6 +28,7 @@ SECRET_KEY = 'django-insecure-de)oji3y=-6%n0t$907gc9f&n$*g%)b)rxjswtz&hoir26&kpv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+MAX_TWEET_LENGTH = 140
 ALLOWED_HOSTS = ['127.0.0.1']
 LOGIN_URL = "/login"  # default it is accounts/login
 
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # third-party
+    'rest_framework',
     # apps
     'applications.tweets',
 ]
@@ -54,6 +57,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'rest_framework.authentication.SessionAuthentication',
+    'rest_framework.authentication.BasicAuthentication'
+
+    )
+}
 
 ROOT_URLCONF = 'server.urls'
 

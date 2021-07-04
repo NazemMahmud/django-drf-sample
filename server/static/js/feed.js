@@ -52,7 +52,7 @@ const Tweet = {
                 let msg = "Tweet is created successfully";
                 console.log("res: ", response);
                 if(response.responseType === 'success') { // for error handling
-                    Tweet.loadTweetLists(response.result.response);
+                    Tweet.loadTweetLists(response.result);
                 } else {
                     msg = "Something went wrong";
                 }
