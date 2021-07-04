@@ -12,16 +12,23 @@ BASE_API_URL = settings.BASE_API_URL
 
 
 
-
-
 def home_view(request, *args, **kwargs):
     return render(request, "pages/feed.html", {"base_api_url": BASE_API_URL})
 
 
 def tweet_create_view(request, *args, **kwargs):
+    # handle authenticated user
+    user = request.user
+    if not request.user.is_authenticated:
+        user = None
+        if request.is_ajax():
+            return JsonResponse({}, status=401)
+        return redirect(settings.LOGIN_URL)
+
     form = TweetForm(request.POST or None)  # create form instance & populate with data from request
     if form.is_valid():
         data = form.save(commit=False)  # not saving, just returning the object
+        data.user = user
         data.save()
         form = TweetForm()
         return JsonResponse(data.serialize(), status=201)
