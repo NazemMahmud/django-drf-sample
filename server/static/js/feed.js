@@ -1,6 +1,7 @@
 
 const Tweet = {
     BASE_API_URL: "",
+    TWEET_BASE_API_URL: "",
     init: function () {
         Tweet.getTweets(); // get all tweets
 
@@ -11,18 +12,31 @@ const Tweet = {
             Tweet.newTweet(data);
         });
 
+        // Tweet Action: like, unlike, retweet
+        $("#tweet-create-form").submit( function (event) {
+            event.preventDefault();
+            const data = $(this).serializeArray();
+            Tweet.newTweet(data);
+        });
+
     },
     setBaseApi: function (apiPath) {
         Tweet.BASE_API_URL = apiPath;
     },
+    setTweetBaseApi: function (apiPath) {
+        Tweet.TWEET_BASE_API_URL = apiPath + "tweets";
+    },
     getTweets: function () { // GET All Tweets api request
-        const url = Tweet.BASE_API_URL + "tweets";
+        console.log(Tweet.BASE_API_URL);
+        const url = Tweet.TWEET_BASE_API_URL;
         Requests.getRequest(url, "loadTweetLists", Tweet.handleResponse);
     },
     loadHtml: function (item) { // Create HTML to Load Each Tweet Lists
         const html = '<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 border p-4 mb-3" style="min-height: 100px">' +
                             '<h5> ' + item.content + ' </h5> ' +
-                            '<button class="btn btn-primary btn-sm" id="item-' + item.id + '"> Like 20 </button> ' +
+                            '<button class="btn btn-primary btn-sm" id="item-like-' + item.id + '"> Like 20 </button> ' +
+                            '<button class="btn btn-light btn-sm" style="color: blue;" id="item-' + item.id + '"> Unlike </button> ' +
+                            '<button class="btn btn-light btn-sm" style="color: green" id="item-' + item.id + '"> Retweet </button> ' +
                      '</div>';
         return html;
     },
@@ -39,7 +53,7 @@ const Tweet = {
         data.forEach(elem => {
             formData[elem.name] = elem.value;
         });
-        const url = Tweet.BASE_API_URL + "create-tweet";
+        const url = Tweet.TWEET_BASE_API_URL + "/create";
         Requests.postRequest(url, formData,"CreateTweet", Tweet.handleResponse);
     },
     addTweet: function (data) { // After Create a Tweet; add in the tweet lists html
@@ -116,7 +130,7 @@ const Tweet = {
 
 };
 
-jQuery(function($) {
-
-    Tweet.init();
-});
+// jQuery(function($) {
+//
+//     Tweet.init();
+// });

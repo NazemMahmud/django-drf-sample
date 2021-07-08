@@ -29,6 +29,8 @@ SECRET_KEY = 'django-insecure-de)oji3y=-6%n0t$907gc9f&n$*g%)b)rxjswtz&hoir26&kpv
 DEBUG = True
 
 MAX_TWEET_LENGTH = 140
+TWEET_ACTION_OPTIONS = ["like", "unlike", "retweet"]
+
 ALLOWED_HOSTS = ['127.0.0.1']
 LOGIN_URL = "/login"  # default it is accounts/login
 
@@ -59,11 +61,15 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-    'rest_framework.authentication.SessionAuthentication',
-    'rest_framework.authentication.BasicAuthentication'
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
 
-    )
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
 }
 
 ROOT_URLCONF = 'server.urls'
@@ -154,4 +160,4 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-BASE_API_URL = "http://127.0.0.1:8000/"
+BASE_API_URL = "http://127.0.0.1:8000/api/"

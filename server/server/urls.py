@@ -19,6 +19,6 @@ from applications.tweets.views import home_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include('applications.tweets.urls')),
-    # path('', home_view),
+    path("api/tweets/", include('applications.tweets.urls')),
+    path('', home_view),
 ]

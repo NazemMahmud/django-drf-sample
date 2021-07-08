@@ -56,6 +56,8 @@
     function contentFunc(){
             var baseAPI = "{{ base_api_url }}";
             Tweet.setBaseApi(baseAPI);
+            Tweet.setTweetBaseApi(baseAPI);
+            Tweet.init();
     }
     window.onload = contentFunc;
 </script>
