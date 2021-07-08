@@ -1,6 +1,12 @@
 # Jetbrains file
 .idea
 
+# virtual environment
+venv/
+
 # pycache files
+server/__pycache__/
 server/applications/tweets/__pycache__/
 server/applications/tweets/migrations/__pycache__/
+
+# commit history: delete and like; use of many to many relationship
